@@ -19,10 +19,12 @@ $query = $link->query($sql);
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/png" href="./favicon.png" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.0/animate.min.css" integrity="sha256-HtCCUh9Hkh//8U1OwcbD8epVEUdBvuI8wj1KtqMhNkI=" crossorigin="anonymous">
   <link rel="stylesheet" href="theme.css">
   <script src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.8.1/js/all.min.js" integrity="sha256-HT9Zb3b1PVPvfLH/7/1veRtUvWObQuTyPn8tezb5HEg=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.0/dist/jquery.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha256-ZvOgfh+ptkpoa2Y4HkRY28ir89u/+VRyDE7sB7hEEcI=" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap-notify@3.1.3/bootstrap-notify.min.js" integrity="sha256-DRllCE/8rrevSAnSMWB4XO3zpr+3WaSuqUSNLD5NAzg=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha256-CjSoeELFOcH0/uxWu6mC/Vlrc1AARqbm/jiiImDGV3s=" crossorigin="anonymous"></script>
   <script>
 
@@ -30,7 +32,7 @@ $query = $link->query($sql);
         $( "#ajout_promo" ).submit(function( event ) {
           event.preventDefault();
           $.post( "change_bdd.php", {page: "promotions", action: "add", nom_promo: $("#nom_promo").val(), debut_promo: $("#debut_promo").val(), fin_promo: $("#fin_promo").val() }, function( data ) {
-            $(".tbody").append('<tr id="'+data+'"><th scope="row">'+data+'</th><td>'+$("#nom_promo").val()+'</td><td>'+$("#debut_promo").val()+'</td><td>'+$("#fin_promo").val()+'</td><td><a class="btn btn-primary btn-sm mr-1" href="#" id="edit"><i class="far fa-fw fa-1x fa-edit"></i></a><a class="btn btn-sm btn-danger" href="#" id="trash"><i class="far fa-fw fa-1x fa-trash-alt"></i></a></td></tr>');
+            $(".tbody").append('<tr id="'+data+'"><th scope="row">'+data+'</th><td>'+$("#nom_promo").val()+'</td><td>'+$("#debut_promo").val()+'</td><td>'+$("#fin_promo").val()+'</td><td><a class="btn btn-primary btn-sm mr-1" href="#" id="edit"><i class="far fa-fw fa-1x fa-edit"></i></a><a class="btn btn-primary btn-sm mr-1" href="#" id="print"><i class="fas fa-fw fa-print"></i></a><a class="btn btn-sm btn-danger" href="#" id="trash"><i class="far fa-fw fa-1x fa-trash-alt"></i></a></td></tr>');
           $('#modal_ajout_promo').modal('toggle');
           }, "json");
         });
@@ -38,12 +40,13 @@ $query = $link->query($sql);
             event.preventDefault();
             var id_promo = $('#id_edit_promo').val();
             $.post( "change_bdd.php", { page: "promotions", action: "edit", id: id_promo, nom_promo: event.currentTarget[1].value, debut_promo: event.currentTarget[2].value, fin_promo: event.currentTarget[3].value }, function( ) { }, "json");
-            $("tr[id='"+id_promo+"']").replaceWith('<tr id="'+id_promo+'"><th scope="row">'+id_promo+'</th><td>'+event.currentTarget[1].value+'</td><td>'+event.currentTarget[2].value+'</td><td>'+event.currentTarget[3].value+'</td><td><a class="btn btn-primary btn-sm mr-1" href="#" id="edit"><i class="far fa-fw fa-1x fa-edit"></i></a><a class="btn btn-sm btn-danger" href="#" id="trash"><i class="far fa-fw fa-1x fa-trash-alt"></i></a></td>');
+            $("tr[id='"+id_promo+"']").replaceWith('<tr id="'+id_promo+'"><th scope="row">'+id_promo+'</th><td>'+event.currentTarget[1].value+'</td><td>'+event.currentTarget[2].value+'</td><td>'+event.currentTarget[3].value+'</td><td><a class="btn btn-primary btn-sm mr-1" href="#" id="edit"><i class="far fa-fw fa-1x fa-edit"></i></a><a class="btn btn-primary btn-sm mr-1" href="#" id="print"><i class="fas fa-fw fa-print"></i></a><a class="btn btn-sm btn-danger" href="#" id="trash"><i class="far fa-fw fa-1x fa-trash-alt"></i></a></td>');
             $("#modal_edit_promo").modal('toggle');
         });
         $(document).on( "click", 'a', function(data){
           var action = data.currentTarget.id;
           var id_promo = data.currentTarget.offsetParent.parentNode.firstChild.innerText;
+					var promo = data.currentTarget.offsetParent.parentNode.children[1].innerText;
           switch (action){
             case "edit":
               $("input#id_edit_promo").val(id_promo);
@@ -52,11 +55,16 @@ $query = $link->query($sql);
               $("input#fin_edit_promo").val(data.currentTarget.parentNode.parentElement.cells[3].innerHTML);
               $("#modal_edit_promo").modal('toggle');
               break;
-            case "trash":
-              $.post( "change_bdd.php", {page: "promotions", action: action, id: id_promo }, function() {
-                $( "tr[id='"+id_promo+"']" ).detach();
-              });
-              break;
+							case "trash":
+	              $("span#nom_promo").text(promo);
+	              $("button#conf_trash").data('promo', id_promo);
+	              $("#modal_trash_promo").modal('toggle');
+	              break;
+	            case "print":
+	              alert('Vous allez imprimer la promotion '+promo);
+	              var my_window = window.open("promo_print.php?id="+id_promo, "_blank", "location=no,menubar=no,status=no,titlebar=no,toolbar=no")
+	              console.log(my_window);
+	              break;
           }
         });
     });
@@ -74,7 +82,6 @@ $query = $link->query($sql);
       </button>
       <div class="collapse navbar-collapse" id="navbar17">
         <ul class="navbar-nav mr-auto">
-          <!--<li class="nav-item"> <a class="nav-link" href="index.php">Calendrier</a> </li>-->
         </ul>
         <ul class="navbar-nav ml-auto">
           <li class="nav-item"> <a class="nav-link" href="entreprises.php">Entreprises</a> </li>
@@ -103,7 +110,7 @@ $query = $link->query($sql);
                 <?php
                     while ($result = $query->fetch()) {
                         echo '<tr id="'.$result['id'].'"><th scope="row">'.$result['id'].'</th><td>'.$result['nom_promo'].'</td><td>'.$result['debut'].'</td><td>'.$result['fin'].'</td>';
-                        echo '<td><a class="btn btn-primary btn-sm mr-1" href="#" id="edit"><i class="far fa-fw fa-edit"></i></a><a class="btn btn-sm btn-danger" href="#" id="trash"><i class="far fa-fw fa-1x fa-trash-alt"></i></a></td></tr>';
+                        echo '<td><a class="btn btn-primary btn-sm mr-1" href="#" id="edit"><i class="far fa-fw fa-edit"></i></a><a class="btn btn-primary btn-sm mr-1" href="#" id="print"><i class="fas fa-fw fa-print"></i></a><a class="btn btn-sm btn-danger" href="#" id="trash"><i class="far fa-fw fa-1x fa-trash-alt"></i></a></td></tr>';
                     }
                 ?>
                 </tbody>
@@ -153,6 +160,20 @@ $query = $link->query($sql);
             </div>
         </div>
         <div class="modal-footer"><button type="submit" class="btn btn-primary">Mettre à jour</button></div>
+        </form>
+      </div>
+    </div>
+  </div>
+	<div class="modal fade" id="modal_trash_promo" >
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Suppression</h5> <button type="button" class="close" data-dismiss="modal"> <span class="">×</span></button>
+        </div>
+        <div class="modal-body">
+          <div class="col-mg-12 text-center">Attention vous allez supprimer la promotion <span id="nom_promo"></span> avec l'ensemble des stagiaires rattachés à cette promotion et les évenements associés.</div>
+          <div class="col-mg-12 text-center">Confirmez vous la suppression de cette promotion ?</div>
+        <div class="modal-footer"><button type="button" class="btn btn-primary" id="conf_trash" data-promo="@mdo">Je souhaite supprimer cette promotion</button></div>
         </form>
       </div>
     </div>

@@ -15,7 +15,11 @@ switch ($_POST['page']) {
                 break;
 
             case 'trash':
+                $sql_events = "DELETE FROM ".$pre."_events WHERE id_promo=".$_POST['id'];
+                $sql_stagiaire = "DELETE FROM ".$pre."_stagiaire WHERE promo=".$_POST['id'];
                 $sql = "DELETE FROM ".$pre."_promo WHERE id=".$_POST['id'];
+                $query = $link->query($sql_events);
+                $query = $link->query($sql_stagiaire);
                 $query = $link->query($sql);
                 break;
         }
@@ -61,7 +65,7 @@ switch ($_POST['page']) {
                 echo "$('input#edit_mail').val(\"".$my_stagiaire['mail_stagiaire']."\");";
                 if ($my_stagiaire['man_stagiaire'] == 1){
                     echo "$('input#edit_man').prop('checked', true);";
-                }                
+                }
                 echo "$('input#edit_chambre').val(\"".$my_stagiaire['chambre_stagiaire']."\");";
                 echo "$('input#edit_poste').val(\"".$my_stagiaire['poste_stagiaire']."\");";
                 break;
@@ -70,7 +74,7 @@ switch ($_POST['page']) {
                 $sql = "UPDATE ".$pre."_stagiaire SET civil_stagiaire='".$_POST['civil_stagiaire']."', nom_stagiaire='".mb_strtoupper($_POST['nom_stagiaire'])."', prenom_stagiaire='".ucfirst($_POST['prenom_stagiaire'])."', naissance_stagiaire='".$_POST['naissance_stagiaire']."', adresse_stagiaire='".$_POST['adresse_stagiaire']."', cp_stagiaire=".$_POST['cp_stagiaire'].", ville_stagiaire='".mb_strtoupper($_POST['ville_stagiaire'])."', man_stagiaire=".$_POST['man_stagiaire'].", chambre_stagiaire='".mb_strtoupper($_POST['chambre_stagiaire'])."', poste_stagiaire=".$_POST['poste_stagiaire'].", phone_stagiaire=".$_POST['phone_stagiaire'].", mail_stagiaire='".$_POST['mail_stagiaire']."' WHERE id_stagiaire = ".$_POST['id_stagiaire'];
                 $query = $link->query($sql);
                 break;
-            
+
             case "profil":
                 $sql = "SELECT * FROM ".$pre."_stagiaire WHERE id_stagiaire = ".$_POST['id'];
                 $query = $link->query($sql);

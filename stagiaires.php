@@ -17,25 +17,45 @@ function vide($var)
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/png" href="./favicon.png" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.0/animate.min.css" integrity="sha256-HtCCUh9Hkh//8U1OwcbD8epVEUdBvuI8wj1KtqMhNkI=" crossorigin="anonymous">
   <link rel="stylesheet" href="theme.css">
   <script src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.8.1/js/all.min.js" integrity="sha256-HT9Zb3b1PVPvfLH/7/1veRtUvWObQuTyPn8tezb5HEg=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.0/dist/jquery.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha256-ZvOgfh+ptkpoa2Y4HkRY28ir89u/+VRyDE7sB7hEEcI=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha256-CjSoeELFOcH0/uxWu6mC/Vlrc1AARqbm/jiiImDGV3s=" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap-notify@3.1.3/bootstrap-notify.min.js" integrity="sha256-DRllCE/8rrevSAnSMWB4XO3zpr+3WaSuqUSNLD5NAzg=" crossorigin="anonymous"></script>
   <script>
     $( document ).ready(function(){
       $(document).on("click", 'a', function(data){
         var action = data.currentTarget.id;
         var id_row = data.currentTarget.offsetParent.parentNode.firstChild.innerText;
+				var nom_stagiaire = data.currentTarget.offsetParent.parentNode.children[1].innerText;
         switch (action){
           case "edit":
             $.post ("change_bdd.php", {page: "stagiaires", action: "edit", id: id_row}, function(){
               $("#modal_edit_stagiaire").modal('toggle');
-            }, "script");            
+            }, "script");
             break;
           case "trash":
             $.post( "change_bdd.php", {page: "stagiaires", action: "trash", id: id_row }, function() {
               $( "tr[id='"+id_row+"']" ).detach();
+							var notify = $.notify({
+                icon: 'fas mr-1 fa-info-circle',
+                title: '',
+                message: nom_stagiaire+" a été supprimée de la base de données."
+              },{
+                type: "success",
+                placement: {
+                  from: "bottom",
+                  align: "center"
+                },
+                delay: 4000,
+                timer: 500,
+                animate: {
+                  enter: 'animated fadeInUp',
+                  exit: 'animated fadeOutDown'
+                }
+              });
             });
             break;
           case "profil":
@@ -89,7 +109,7 @@ function vide($var)
             $.post( "change_bdd.php", my_data, function() {
               $("tr[id='"+id_stagiaire+"']").replaceWith('<tr id='+id_stagiaire+'><th scope="row">'+id_stagiaire+'</th><td>'+event.currentTarget[1].value+' '+event.currentTarget[3].value+' '+event.currentTarget[4].value+'</td><td>'+event.currentTarget[5].value+'<br /> '+event.currentTarget[6].value+' '+event.currentTarget[7].value.toUpperCase()+'</td><td>'+event.currentTarget[2].value+'</td><td>'+event.currentTarget[8].value+'</td><td><a class="btn btn-primary btn-sm mr-1" href="#" id="profil"><i class="far fa-fw fa-1x fa-user"></i></a><a class="btn btn-primary btn-sm mr-1" href="mailto:'+event.currentTarget[9].value+'" id="sendmail"><i class="far fa-fw fa-1x fa-paper-plane"></i></a><a class="btn btn-primary btn-sm mr-1" href="#" id="edit"><i class="far fa-fw fa-1x fa-edit"></i></a><a class="btn btn-sm btn-danger" href="#" id="trash"><i class="far fa-fw fa-1x fa-trash-alt"></i></a></td></tr>');
               $("#modal_edit_stagiaire").modal('toggle');
-            });            
+            });
         });
     });
 
@@ -155,7 +175,7 @@ function vide($var)
     </div>
   </div>
   <!-- Fin de la page principale -->
-  <!-- Début de la boite de dialogue d'ajout -->                
+  <!-- Début de la boite de dialogue d'ajout -->
   <div class="modal fade" style="" id="modal_ajout_stagiaire" >
     <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
       <div class="modal-content">
@@ -283,5 +303,4 @@ function vide($var)
   });
   </script>
 </body>
-
 </html>
