@@ -10,14 +10,7 @@
 <html>
     <head>
         <title>Promotion <?php echo $print['0']['nom_promo'] ?></title>
-        <link rel="stylesheet" href="theme_print.css" media="print">
-        <link rel="stylesheet" href="theme.css" media="screen">
-        <style type="text/css" media="print">
-            @page {
-            size: landscape;
-            margin-top: 2cm
-            }
-        </style>
+        <link rel="stylesheet" href="theme_print.css">
         <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.0/dist/jquery.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha256-ZvOgfh+ptkpoa2Y4HkRY28ir89u/+VRyDE7sB7hEEcI=" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap-notify@3.1.3/bootstrap-notify.min.js" integrity="sha256-DRllCE/8rrevSAnSMWB4XO3zpr+3WaSuqUSNLD5NAzg=" crossorigin="anonymous"></script>
@@ -27,8 +20,8 @@
         <div class="pb-4">
             <div class="container-fluid">
             <div class="row">
-                <div class="col-md-12">
-                <h2 class="text-center"><?php echo $print['0']['nom_promo'] ?></h2>
+                <div class="col-12">
+                <h1 class="text-center"><?php echo $print['0']['nom_promo'] ?></h1>
                 </div>
             </div>
             </div>
@@ -36,9 +29,9 @@
         <div class="pb-4">
             <div class="container-fluid">
             <div class="row">
-                <div class="bg-dark text-light text-left col-md-4 font-weight-bold">Entrée le <?php echo date("d/m/Y", strtotime($print['0']['debut_promo'])); ?></div>
-                <div class="bg-dark text-light text-left col-md-4 font-weight-bold">Sortie le <?php echo date("d/m/Y", strtotime($print['0']['fin_promo'])); ?></div>
-                <div class="bg-dark text-light text-right col-md-4 font-weight-bold"><?php echo $nbr ?> stagiaires</div>
+                <div class="h2 bg-light align-middle text-left col-4 p-1">Entrée le <?php echo date("d/m/Y", strtotime($print['0']['debut_promo'])); ?></div>
+                <div class="h2 bg-light align-middle text-left col-4 p-1">Sortie le <?php echo date("d/m/Y", strtotime($print['0']['fin_promo'])); ?></div>
+                <div class="h2 bg-light align-middle text-right col-4 p-1"><?php echo $nbr ?> stagiaires</div>
             </div>
             </div>
         </div>
@@ -46,8 +39,8 @@
             <div class="container-fluid">
             <div class="row">
                 <div class="table-responsive">
-                    <table class="table table-bordered table-sm table-striped">
-                    <thead class="thead-dark">
+                    <table class="table table-striped table-bordered table-sm">
+                    <thead class="thead-light">
                         <tr>
                         <th class="text-center">NOM</th>
                         <th class="text-center">PRENOM</th>
@@ -66,12 +59,12 @@
                             echo "<tr>
                             <th>".$row['nom_stagiaire']."</th>
                             <td>".$row['prenom_stagiaire']."</td>
-                            <td>".$age." (".date("d/m/Y", strtotime($row['naissance_stagiaire'])).")</td>
-                            <td>".$row['cp_stagiaire']."</td>
+                            <td class=\"text-center\">".$age." (".date("d/m/Y", strtotime($row['naissance_stagiaire'])).")</td>
+                            <td class=\"text-center\">".$row['cp_stagiaire']."</td>
                             <td>".$row['ville_stagiaire']."</td>
                             <td class=\"text-center\">".$man."</td>
                             <td class=\"text-center\">".$row['chambre_stagiaire']."</td>
-                            <td class=\"text-center\">".$row['poste_stagiaire']."</td></tr>";
+                            <td class=\"text-center\">".(($row['poste_stagiaire'] == 0000) ? '' : $row['poste_stagiaire'])."</td></tr>";
                         }
                         ?>
                     </tbody>

@@ -61,9 +61,11 @@ $query = $link->query($sql);
 	              $("#modal_trash_promo").modal('toggle');
 	              break;
 	            case "print":
-	              alert('Vous allez imprimer la promotion '+promo);
-	              var my_window = window.open("promo_print.php?id="+id_promo, "_blank", "location=no,menubar=no,status=no,titlebar=no,toolbar=no")
-	              console.log(my_window);
+	              var my_window = window.open("promo_print.php?id="+id_promo, "_blank", "fullscreen=yes,location=no,menubar=no,status=no,titlebar=no,toolbar=no");
+								my_window.onload = function(){
+									my_window.print();
+									my_window.close();
+								};
 	              break;
           }
         });
