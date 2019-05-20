@@ -29,22 +29,22 @@ while ($result = $query->fetch()) {
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta http-equiv="Cache-Control" content="no-cache, must-revalidate" />
   <link rel="icon" type="image/png" href="favicon.png" />
-  
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fullcalendar/core@4.0.2/main.min.css" integrity="sha256-Vsnkpn7sp6GxFo25vp+vpMPQYqxysSE8QJQyb48a3y8=" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@4.0.1/main.min.css" integrity="sha256-RwkKY4caoWw45ako4ZOJLAkhcfQwnt1QHqdrP0FRHj0=" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fullcalendar/list@4.0.1/main.min.css" integrity="sha256-DKcJjKv7ABuZ0ykex6ohHJ8OHfldGBllXwTjj66dKCg=" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.0/animate.min.css" integrity="sha256-HtCCUh9Hkh//8U1OwcbD8epVEUdBvuI8wj1KtqMhNkI=" crossorigin="anonymous">
-  <link rel="stylesheet" href="theme.css">
-  <script src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.8.1/js/all.min.js" integrity="sha256-HT9Zb3b1PVPvfLH/7/1veRtUvWObQuTyPn8tezb5HEg=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.0/dist/jquery.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha256-ZvOgfh+ptkpoa2Y4HkRY28ir89u/+VRyDE7sB7hEEcI=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha256-CjSoeELFOcH0/uxWu6mC/Vlrc1AARqbm/jiiImDGV3s=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap-notify@3.1.3/bootstrap-notify.min.js" integrity="sha256-DRllCE/8rrevSAnSMWB4XO3zpr+3WaSuqUSNLD5NAzg=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@4.0.2/locales/fr.js" integrity="sha256-r++d19+Nd1BFfWVu8arPjHE3b8cXs6S7mBpDzAeKBlk=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@4.0.2/main.min.js" integrity="sha256-Oj9aQv2B188xPiNBtYLeuIegK8rtAl7QnuWW6yf4J6o=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@4.0.1/main.min.js" integrity="sha256-LNsuta0tVOHHpWWY/0TWZhp1wV2yinqJfueQgIDZWLw=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/interaction@4.0.2/main.min.js" integrity="sha256-yjJrPJBP4y/QYXCOOPTO5r2DsTEuINLx+//3Jx0063g=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/list@4.0.1/main.min.js" integrity="sha256-Ay8uARunHO/EMTOOeRrPBkWIxn/1YHcokSs8FpY/HIs=" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="theme.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fullcalendar/core@4.1.0/main.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@4.1.0/main.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fullcalendar/list@4.1.0/main.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.0/animate.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@4.1.0/main.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@4.1.0/main.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/list@4.1.0/main.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@4.1.0/locales/fr.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/interaction@4.1.0/main.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.8.2/js/all.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.15.0/dist/umd/popper.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap-notify@3.1.3/bootstrap-notify.min.js"></script>
   <script>
 
     $( document ).ready(function(){
@@ -162,6 +162,19 @@ while ($result = $query->fetch()) {
           });
         });
       });
+
+			$("#print").click(function(info){
+				var id_event = $("span#id_info_event").text();
+				alert ("La fonction n'est pas encore implémentée.");
+				//var my_window = window.open("event_print.php?id="+id_event, "_blank", "fullscreen=yes,location=no,menubar=no,status=no,titlebar=no,toolbar=no");
+				/*var my_window = window.open("./origin/Q-F-Enquete de satisfaction entreprise.pdf", "_blank", "fullscreen=yes,location=no,menubar=no,status=no,titlebar=no,toolbar=no");
+				console.log(my_window);
+				my_window.onload = function(){
+					alert ("La fenêtre est chargée");
+					my_window.print();
+					my_window.close();
+				};*/
+			});
     });
 
    </script>
@@ -219,19 +232,19 @@ while ($result = $query->fetch()) {
           <div class="col-md-12">
           <form>
             <div class="form-group" id="form-suivi">
-              <label>Suivi de la période en entreprise</label> 
+              <label>Suivi de la période en entreprise</label>
               <select class="form-control" id="select_suivi">
                 <option value="#3788d8">Pas de suivi</option>
                 <option value="#dc3545">A rappeler</option>
                 <option value="#ffc107">A visiter</option>
                 <option value="#28a745">Suivi terminé</option>
-               </select>  
+               </select>
             </div>
           </form>
           </div>
           </div>
         </div>
-        <div class="modal-footer"> <button type="button" class="btn btn-primary"><i class="fas fa-edit fa-lg"></i></button><button class="btn btn-danger" id="trash_event"><i class="fa fa-fw fa-trash fa-lg"></i></button> </div>
+        <div class="modal-footer"> <button type="button" class="btn btn-primary" id="print"><i class="fas fa-lg fa-print"></i></button><button type="button" class="btn btn-primary"><i class="fas fa-edit fa-lg"></i></button><button class="btn btn-danger" id="trash_event"><i class="fa fa-fw fa-trash fa-lg"></i></button> </div>
       </div>
     </div>
   </div>
